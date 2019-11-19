@@ -11,10 +11,8 @@ export class NewsService {
   products: any;
   constructor(private http: HttpClient) { }
 
-  getNewsList() {
-    return this.http.get(NEWS.BASE_URL);
-  }
-
-  
+  getNewsList(): Observable<any> {
+    return this.http.get(NEWS.BASE_URL + Constants.NEWS_LIST+'?apiKey=' + NEWS.API_KEY + '&sources=' + Constants.SOURCES);
+  }  
 
 }

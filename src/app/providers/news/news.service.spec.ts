@@ -15,9 +15,9 @@ describe('NewsService', () => {
 
   it("should call newsList which returns observable", inject(
     [NewsService, HttpTestingController],
-    (productsService, httpMock) => {
+    (newsService, httpMock) => {
      const articles = [{author: 'BBC', title : 'Headlines', description: 'New News'}];
-     productsService.getNewsList().subscribe(data => {
+     newsService.getNewsList().subscribe(data => {
        expect(data.articles).toEqual(articles);
     });
   }));

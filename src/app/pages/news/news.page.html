@@ -1,0 +1,25 @@
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="forceReload($event)">
+     <ion-refresher-content>
+
+     </ion-refresher-content>
+  </ion-refresher>
+    <ion-card class="news-card-view" *ngFor="let news of newsList | async" (click)="openDetailsWithState(news)">
+  
+      <ion-row>
+        <ion-col>
+          <img
+            src={{news.urlToImage}}>
+        </ion-col>
+  
+        <ion-col>
+          <ion-card-title class="news-title">
+            {{news.title}}
+          </ion-card-title>
+        </ion-col>
+      </ion-row>
+  
+    </ion-card>
+  
+  </ion-content>
