@@ -5,10 +5,12 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
+import { CacheService } from 'ionic-cache';
 
 describe('AppComponent', () => {
 
-  let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy, cacheSpy;
+  let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
+  let cacheSpy;
 
   beforeEach(async(() => {
     statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleDefault']);
@@ -16,13 +18,16 @@ describe('AppComponent', () => {
     platformReadySpy = Promise.resolve();
     platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy });
 
+    cacheSpy = jasmine.createSpyObj('CacheService', ['setDefaultTTL', 'setOfflineInvalidate']);
+
     TestBed.configureTestingModule({
       declarations: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: StatusBar, useValue: statusBarSpy },
         { provide: SplashScreen, useValue: splashScreenSpy },
-        { provide: Platform, useValue: platformSpy }
+        { provide: Platform, useValue: platformSpy },
+        { provide: CacheService, useValue: cacheSpy }
       ],
     }).compileComponents();
   }));
@@ -33,14 +38,15 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should initialize the app', async () => {
+  it('should initialize the app along with Offline Cache and validity', async () => {
     TestBed.createComponent(AppComponent);
     expect(platformSpy.ready).toHaveBeenCalled();
     await platformReadySpy;
+    expect(cacheSpy.setDefaultTTL).toHaveBeenCalled();
+    expect(cacheSpy.setOfflineInvalidate).toHaveBeenCalled();
     expect(statusBarSpy.styleDefault).toHaveBeenCalled();
     expect(splashScreenSpy.hide).toHaveBeenCalled();
   });
 
-  // TODO: add more tests!
 
 });

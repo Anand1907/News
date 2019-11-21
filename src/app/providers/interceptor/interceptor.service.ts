@@ -13,13 +13,14 @@ import { tap } from 'rxjs/operators';
 import {
   Router
 } from '@angular/router';
+import { Utils } from './../../utils/utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InterceptorService implements HttpInterceptor{
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private utils: Utils) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -39,6 +40,7 @@ export class InterceptorService implements HttpInterceptor{
           console.log('Error -->', error);
           // Handle Project Specific Error Codes
           // Finally Throw the Error back to Caller
+          this.utils.showToast(this.utils.fetchError);
           return throwError(error);
         }
       }));

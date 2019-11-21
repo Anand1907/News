@@ -19,7 +19,4 @@ describe('NewsDetailsPage', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
-    expect(true).toBeTruthy();
-  });
 });

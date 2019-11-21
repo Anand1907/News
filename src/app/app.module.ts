@@ -10,7 +10,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { InterceptorService } from './providers/interceptor/interceptor.service';
-import { CacheModule, CacheService } from 'ionic-cache';
+import { CacheModule } from 'ionic-cache';
+import { Utils } from './utils/utils';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { CacheModule, CacheService } from 'ionic-cache';
     StatusBar,
     SplashScreen,
     HttpClientModule,
+    Utils,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,
